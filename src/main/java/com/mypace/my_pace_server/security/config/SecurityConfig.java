@@ -1,10 +1,10 @@
 package com.mypace.my_pace_server.security.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mypace.my_pace_server.common.dtos.ApiError;
 import com.mypace.my_pace_server.config.SecurityUrls;
 import com.mypace.my_pace_server.modules.role.enums.UserRole;
 import com.mypace.my_pace_server.security.JwtAuthenticationFilter;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.lang.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -46,8 +46,6 @@ public class SecurityConfig {
                     .permitAll()
                     .requestMatchers(SecurityUrls.SUDO_ADMIN_URLS)
                     .hasAuthority(UserRole.SUDO_ADMIN.name())
-                    .requestMatchers(SecurityUrls.ADMIN_URLS)
-                    .hasAnyAuthority(UserRole.SUDO_ADMIN.name(), UserRole.ADMIN.name())
                     .requestMatchers(SecurityUrls.ALL_ROLES_URLS)
                     .hasAnyAuthority(UserRole.ALL())
                     .anyRequest()

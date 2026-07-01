@@ -1,10 +1,8 @@
 package com.mypace.my_pace_server.modules.user;
 
 import com.mypace.my_pace_server.common.exceptions.ResourceNotFoundException;
-import com.mypace.my_pace_server.modules.role.Role;
 import com.mypace.my_pace_server.modules.role.RoleRepository;
 import com.mypace.my_pace_server.modules.role.enums.UserRole;
-import com.authentication.auth_app_backend.modules.user.dto.*;
 import com.mypace.my_pace_server.modules.user.dto.*;
 import com.mypace.my_pace_server.modules.user.enums.Provider;
 import java.util.Date;
@@ -42,9 +40,8 @@ public class UserServiceImpl implements UserService {
     user.setUpdatedAt(null);
 
     if (userDto.getRoles() != null && !userDto.getRoles().isEmpty()) {
-      if (!userDto.getRoles().contains(UserRole.GUEST.name())
-          && !userDto.getRoles().contains(UserRole.ADMIN.name())) {
-        user.getRoles().add(UserRole.GUEST.name());
+      if (!userDto.getRoles().contains(UserRole.USER.name())) {
+        user.getRoles().add(UserRole.USER.name());
       }
 
       userDto
@@ -64,13 +61,13 @@ public class UserServiceImpl implements UserService {
               });
     } else {
       roleRepository
-          .findByName(UserRole.GUEST.name())
+          .findByName(UserRole.USER.name())
           .ifPresentOrElse(
               roleDb -> {
                 user.setRoles(Set.of(roleDb.getName()));
               },
               () -> {
-                throw new IllegalArgumentException(UserRole.GUEST.name() + " role does not exist.");
+                throw new IllegalArgumentException(UserRole.USER.name() + " role does not exist.");
               });
     }
 
@@ -171,7 +168,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public UserResponseDto updateUserStatusById(
-          UserStatusUpdateDto userStatusUpdateDto, String userId) {
+      UserStatusUpdateDto userStatusUpdateDto, String userId) {
     User existingUser =
         userRepository
             .findById(userId)
@@ -181,34 +178,5 @@ public class UserServiceImpl implements UserService {
 
     User user = userRepository.save(existingUser);
     return modelMapper.map(user, UserResponseDto.class);
-  }
-
-  @Override
-  @Transactional
-  public UserResponseDto createAdminUser(UserAdminDto userDto) {
-    if (userDto.getEmail() == null || userDto.getEmail().isBlank()) {
-      throw new IllegalArgumentException("Email is required");
-    }
-
-    if (userRepository.existsByEmail(userDto.getEmail())) {
-      throw new IllegalArgumentException("User with given email already exists.");
-    }
-
-    Role role =
-        roleRepository
-            .findByName(UserRole.ADMIN.name())
-            .orElseThrow(() -> new ResourceNotFoundException("Admin role does not exist."));
-
-    User user = modelMapper.map(userDto, User.class);
-    user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-    user.setEnable(true);
-    user.setCreatedAt(new Date());
-    user.setUpdatedAt(null);
-    user.setProvider(userDto.getProvider() != null ? userDto.getProvider() : Provider.LOCAL);
-    user.setRoles(Set.of(role.getName()));
-
-    User savedUser = userRepository.save(user);
-
-    return modelMapper.map(savedUser, UserResponseDto.class);
   }
 }

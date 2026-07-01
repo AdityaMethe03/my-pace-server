@@ -65,8 +65,7 @@ public class RoleServiceImpl implements RoleService {
             .orElseThrow(() -> new ResourceNotFoundException("Role not found with given id"));
 
     if (UserRole.SUDO_ADMIN.name().equals(role.getName())
-        || UserRole.ADMIN.name().equals(role.getName())
-        || UserRole.GUEST.name().equals(role.getName())) {
+        || UserRole.USER.name().equals(role.getName())) {
       throw new IllegalArgumentException("Role with given name cannot be deleted.");
     }
 
@@ -102,8 +101,7 @@ public class RoleServiceImpl implements RoleService {
             .orElseThrow(() -> new ResourceNotFoundException("Role not found with given id"));
 
     if (UserRole.SUDO_ADMIN.name().equals(existingRole.getName())
-        || UserRole.ADMIN.name().equals(existingRole.getName())
-        || UserRole.GUEST.name().equals(existingRole.getName())) {
+        || UserRole.USER.name().equals(existingRole.getName())) {
       throw new IllegalArgumentException("Default role with given name cannot be updated.");
     }
 

@@ -1,6 +1,5 @@
 package com.mypace.my_pace_server.modules.user;
 
-import com.authentication.auth_app_backend.modules.user.dto.*;
 import com.mypace.my_pace_server.modules.user.dto.*;
 
 public interface UserService {
@@ -29,6 +28,4 @@ public interface UserService {
   UserResponseDto updateUserPassword(UserPasswordDto user, String userId);
 
   UserResponseDto updateUserStatusById(UserStatusUpdateDto userStatusUpdateDto, String userId);
-
-  UserResponseDto createAdminUser(UserAdminDto user);
 }

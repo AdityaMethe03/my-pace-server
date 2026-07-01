@@ -74,7 +74,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                 .enable(true)
                 .provider(Provider.GOOGLE)
                 .providerId(googleId)
-                .roles(Set.of(UserRole.GUEST.name()))
+                .roles(Set.of(UserRole.USER.name()))
                 .status(UserStatusEnum.ACTIVE)
                 .build();
 
@@ -99,7 +99,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                 .enable(true)
                 .provider(Provider.GITHUB)
                 .providerId(githubId)
-                .roles(Set.of(UserRole.GUEST.name()))
+                .roles(Set.of(UserRole.USER.name()))
                 .status(UserStatusEnum.ACTIVE)
                 .build();
 

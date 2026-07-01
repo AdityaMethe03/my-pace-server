@@ -44,8 +44,7 @@ public class DataSeeder implements ApplicationRunner {
   }
 
   private void seedDefaultRoles() {
-    Stream.of(UserRole.SUDO_ADMIN.name(), UserRole.ADMIN.name(), UserRole.GUEST.name())
-        .forEach(this::seedRole);
+    Stream.of(UserRole.SUDO_ADMIN.name(), UserRole.USER.name()).forEach(this::seedRole);
   }
 
   private void seedRole(String roleName) {
