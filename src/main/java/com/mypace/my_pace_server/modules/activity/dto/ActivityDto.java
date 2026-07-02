@@ -1,25 +1,20 @@
-package com.mypace.my_pace_server.modules.activity;
+package com.mypace.my_pace_server.modules.activity.dto;
 
 import com.mypace.my_pace_server.modules.activity.enums.ActivityCategoryEnum;
 import com.mypace.my_pace_server.modules.activity.enums.ActivityStatusEnum;
 import java.util.Date;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document(collection = "activities")
-public class Activity {
-  @Id private String id;
+public class ActivityDto {
+  private String id;
   private String userId;
   private String title;
   private String description;
-  private Date createdAt;
-  private Date updatedAt;
   private ActivityCategoryEnum category;
   private Date scheduledAt;
   private Integer duration;
