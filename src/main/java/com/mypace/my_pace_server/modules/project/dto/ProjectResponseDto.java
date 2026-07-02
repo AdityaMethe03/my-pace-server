@@ -1,21 +1,18 @@
-package com.mypace.my_pace_server.modules.project;
+package com.mypace.my_pace_server.modules.project.dto;
 
 import com.mypace.my_pace_server.common.enums.PriorityEnum;
 import com.mypace.my_pace_server.modules.project.enums.CategoryEnum;
 import com.mypace.my_pace_server.modules.project.enums.ProjectStatusEnum;
 import java.util.Date;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document(collection = "projects")
-public class Project {
-  @Id private String id;
+public class ProjectResponseDto {
+  private String id;
   private String userId;
   private String title;
   private String description;
