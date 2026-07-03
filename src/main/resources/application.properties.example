@@ -1,7 +1,7 @@
 # ===============================
 # = App config
 # ===============================
-spring.application.name=auth-app
+spring.application.name=mypace-app
 server.port=8091
 server.servlet.context-path=/app
 

@@ -1,21 +1,18 @@
-package com.mypace.my_pace_server.modules.habit;
+package com.mypace.my_pace_server.modules.habit.dto;
 
 import com.mypace.my_pace_server.modules.habit.enums.HabitFrequencyEnum;
 import java.time.DayOfWeek;
 import java.util.Date;
 import java.util.List;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document(collection = "habits")
-public class Habit {
-  @Id private String id;
+public class HabitResponseDto {
+  private String id;
   private String userId;
   private String title;
   private String description;
